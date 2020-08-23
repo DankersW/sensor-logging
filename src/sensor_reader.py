@@ -25,7 +25,7 @@ class SensorReader:
 
 if __name__ == '__main__':
     cmd = './sensor_data_simulator.x86_64-unknown-linux-gnu'
-    arg = '--name=test'
-    command = [cmd]#, arg]
+    arg = '--name=445t-e1'
+    command = [cmd, arg]
 
     sensor_reader = SensorReader(command)
