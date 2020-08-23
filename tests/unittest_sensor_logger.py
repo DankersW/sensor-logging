@@ -22,7 +22,7 @@ class TestIdFromTopic(unittest.TestCase):
                       {'timestamp': 1598218977394, 'name': 'a125r2g2e'},
                       {'timestamp': 1598219517931, 'name': '445t-e1'}]
         for data, truth in zip(self.bin_data, truth_list):
-            result = logger.get_mandatory_fields(data)
+            result = logger.decode_mandatory_fields(data)
             self.assertEqual(result, truth)
 
     def test_decoding_optional_fields(self):
@@ -32,5 +32,5 @@ class TestIdFromTopic(unittest.TestCase):
                       {'humi': 609}, {'temp': 193940, 'humi': 874}, {}]
         for data, truth, name_size in zip(self.bin_data, truth_list, name_sizes):
             logger.Sizes.name = name_size
-            result = logger.get_optional_fields(data)
+            result = logger.decode_optional_fields(data)
             self.assertEqual(result, truth)

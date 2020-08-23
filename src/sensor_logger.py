@@ -1,4 +1,6 @@
 from dataclasses import dataclass
+from datetime import datetime
+from pytz import timezone
 
 
 class SensorLogger:
@@ -25,20 +27,33 @@ class SensorLogger:
         else:
             return bin_slice.decode('UTF-8')
 
+    @staticmethod
+    def timestamp_to_iso8601(timestamp, location):
+        timestamp /= 1000
+        tz = timezone(location)
+        return datetime.fromtimestamp(timestamp, tz).isoformat()
+
     def __init__(self):
         self.setup_mqtt()
 
     def setup_mqtt(self):
         pass
 
+    def log(self, bin_data):
+        data = self.decode_log_data(bin_data)
+
+        location = 'America/Los_Angeles'
+        print(self.timestamp_to_iso8601(data.get('timestamp'), location))
+
+        construct_log_format()
+        write_log_to_file()
+
     def decode_log_data(self, bin_data):
-        log_man = self.get_mandatory_fields(bin_data)
-        log_opt = self.get_optional_fields(bin_data)
-        log = {**log_man, **log_opt}
+        log_man = self.decode_mandatory_fields(bin_data)
+        log_opt = self.decode_optional_fields(bin_data)
+        return {**log_man, **log_opt}
 
-        print('log: {}'.format(log))
-
-    def get_mandatory_fields(self, data):
+    def decode_mandatory_fields(self, data):
         self.Sizes.name = self.decode_binary_data(data, start_pos=self.Offsets.nlen, numerical=True,
                                                   end_pos=self.Offsets.nlen + self.Sizes.nlen)
         timestamp = self.decode_binary_data(data, start_pos=self.Offsets.time, numerical=True,
@@ -47,7 +62,7 @@ class SensorLogger:
                                        end_pos=self.Offsets.name + self.Sizes.name)
         return {'timestamp': timestamp, 'name': name}
 
-    def get_optional_fields(self, data):
+    def decode_optional_fields(self, data):
         self.Offsets.mandatory_fields = self.Offsets.name + self.Sizes.name
         size_optional_fields = len(data) - self.Offsets.mandatory_fields
         if size_optional_fields == self.Sizes.temp:
