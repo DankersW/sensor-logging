@@ -1,0 +1,5 @@
+###### Requirements without Version Specifiers ######
+
+###### Requirements with Version Specifiers ######
+pytz >= 2018.3
+paho-mqtt >= 1.5.0
