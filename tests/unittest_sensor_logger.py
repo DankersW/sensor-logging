@@ -34,3 +34,13 @@ class TestIdFromTopic(unittest.TestCase):
             logger.Sizes.name = name_size
             result = logger.decode_optional_fields(data)
             self.assertEqual(result, truth)
+
+    def test_construct_log_format(self):
+        logger = SensorLogger()
+        data_dicts = [{}]
+        truth_list = [{'temp': 106418, 'humi': 437}, {'humi': 293}, {'temp': 524257}, {'temp': 51061, 'humi': 286},
+                      {'humi': 609}, {'temp': 193940, 'humi': 874}, {}]
+        for data_dict, truth in zip(data_dicts, truth_list):
+            logger.Sizes.name = name_size
+            result = logger.decode_optional_fields(data)
+            self.assertEqual(result, truth)
