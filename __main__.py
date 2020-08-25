@@ -1,5 +1,21 @@
-# todo: start moscitto if it is present
+from src.sensor_reader import SensorReader
+from src.sensor_logger import SensorLogger
 
-# todo: start programs concurently
+from time import sleep
+from subprocess import Popen
 
-# todo: send encoded data over instead of strings
+
+def start_mqtt_broker_locally():
+    start_broker_command = ['mosquitto', '-v']
+    Popen(start_broker_command)
+    sleep(2)
+
+
+start_mqtt_broker_locally()
+
+sensor_logger = SensorLogger()
+sensor_logger.start()
+
+command = ['./src/sensor_data_simulator.x86_64-unknown-linux-gnu']
+sensor_reader = SensorReader(command)
+sensor_reader.start()

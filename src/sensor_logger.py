@@ -7,7 +7,6 @@ import paho.mqtt.client as mqtt
 
 
 class SensorLogger(Thread):
-
     def __init__(self):
         Thread.__init__(self)
         self.formatter = Formatter()
