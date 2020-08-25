@@ -16,6 +16,6 @@ start_mqtt_broker_locally()
 sensor_logger = SensorLogger()
 sensor_logger.start()
 
-command = ['./src/sensor_data_simulator.x86_64-unknown-linux-gnu']
+command = ['./sensor_simulator/sensor_data_simulator.x86_64-unknown-linux-gnu']
 sensor_reader = SensorReader(command)
 sensor_reader.start()
