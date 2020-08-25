@@ -6,6 +6,7 @@ class Decoder:
     class Sizes:
         name: int
         time: int = 8
+        plen: int = 4
         nlen: int = 1
         temp: int = 3
         humi: int = 2
@@ -28,7 +29,7 @@ class Decoder:
     def decode_log_data(self, bin_data):
         log_man_fields = self.decode_mandatory_fields(bin_data)
         log_opt_fields = self.decode_optional_fields(bin_data)
-        return {**log_man_fields, **log_opt_fields}
+        return str({**log_man_fields, **log_opt_fields})
 
     def decode_mandatory_fields(self, data):
         self.Sizes.name = self.decode_binary_data(data, start_pos=self.Offsets.nlen, numerical=True,
