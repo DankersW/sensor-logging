@@ -10,9 +10,6 @@ For the network communication between the instances MQTT is used.
 Also, in the repo one can find a directory containing basic unit tests as well as a Github workflow folder 
 (Github Actions). Github Actions is a convenient way of implementing CI chains on Github.
   
-## to ask
-- what is the location of the device, for the timestamp
-- should temperature be in degrees celcius or kelvin, the data contradicts itself. 
 
 ## Setup 
 ```bash
