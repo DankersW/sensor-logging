@@ -46,7 +46,6 @@ class SensorLogger(Thread):
     def write_to_file(self, log_msg):
         with open(self.filename, "a") as file:
             file.write(log_msg + '\n')
-        file.close()
 
 
 if __name__ == '__main__':
